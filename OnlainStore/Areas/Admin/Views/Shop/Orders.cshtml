@@ -1,0 +1,58 @@
+@model System.Collections.Generic.List<OnlainStore.Models.ViewModel.Pages.OrdersForAdminVM>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "_Layout";
+}
+
+<h2>Orders</h2>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">There are no orders</h2>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Order Number
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Order Details
+            </th>
+            <th>
+                Created Add
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.OrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Username)
+                </td>
+                <td>
+                    @foreach (var item2 in item.ProductsAndQuty)
+                    {
+                        @item2.Key @:x @item2.Value <br/>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CreatedAdd)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Total)$
+                </td>
+            </tr>
+        }
+    </table>
+}

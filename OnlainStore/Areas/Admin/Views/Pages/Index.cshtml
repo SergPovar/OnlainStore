@@ -1,0 +1,65 @@
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
+@model List<OnlainStore.Models.ViewModel.Pages.PageVM>
+@{
+    ViewBag.Title = "Pages Index";
+    var list = Model;
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <h2>Index</h2>
+    @if (TempData["SM"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SM"]
+        </div>
+    }
+    <p>
+        @Html.ActionLink("Create new page", "AddPage", new { area = "Admin", controller = "Pages" }, new { @class = "btn btn-success" })
+    </p>
+    <table class="table sorting" id="pages">
+        <tr class="home">
+            <th>
+                Title
+            </th>
+            <th>
+                Slug
+            </th>
+            <th>
+                Sidebar
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in list)
+        {
+            <tr id="id_@item.Id_page" class="@item.Slug">
+                <td>
+                    @if (item.Slug != "home")
+                    {
+                        <span class="ui-icon  ui-icon-arrowthick-2-n-s"></span>
+                    }
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasSidebar)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditPage", "Pages", new { id = item.Id_page }) |
+                    @Html.ActionLink("Details", "DetailsPage", "Pages", new { id = item.Id_page })
+                    @if (item.Slug != "home")
+                    {
+                        var slash = "| ";
+                        @slash
+                        @Html.ActionLink("Delete", "DeletePage", "Pages", new { id = item.Id_page }, new { @class = "delete" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section Scripts
+{
+    <script src="~/js/PageScripts.js" asp-append-version="true"></script>
+}

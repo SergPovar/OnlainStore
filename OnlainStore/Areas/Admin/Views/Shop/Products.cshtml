@@ -1,0 +1,88 @@
+@model IEnumerable<OnlainStore.Models.ViewModel.Pages.ProductVM>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "_Layout";
+    var pagedList = (IPagedList)ViewBag.onePageOfProducts;
+}
+<h2>Products</h2>
+<select id="SelectCategory" name="SelectCategory">
+    <option value="0">All</option>
+    @foreach (var item in ViewBag.Categories)
+    {
+        if (ViewBag.SelectedCat == item.Value)
+        {
+            <option selected="selected" value="@item.Value">@item.Text</option>
+        }
+        else
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    }
+</select>
+<br/><br/>
+<p>
+    @Html.ActionLink("Add new product", "AddProduct", "Shop", "", new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var product in ViewBag.onePageOfProducts)
+    {
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                @product.Description
+            </td>
+            <td>
+                @product.Price
+            </td>
+            <td>
+            <a href="~/Areas/Admin/Shop/EditProduct/@product.Id_product">
+                @if (@product.ImageName == "No image")
+                {
+                    <img style='width:120px; height:130px;'src="~/IMG/no-image.png" alt=""/>
+                }
+                else
+                {
+                    <img style='width:120px; height:130px;' src="~/IMG/Uploads/Products/@product.Id_product/Avatar/@product.ImageName" alt=""/>
+                }
+            </a>
+            <td/>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = product.Id_product }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = product.Id_product }, new { @class = "btn btn-danger delete" })
+            </td>
+        </tr>
+    }
+</table>
+    @Html.PagedListPager(pagedList, page => Url.Action("Products", new { page,catId = ViewBag.SelectedCat }),
+    new PagedListRenderOptions
+    {                       
+        DisplayLinkToIndividualPages = true,
+        DisplayPageCountAndCurrentLocation = false,
+        MaximumPageNumbersToDisplay = 4,
+        LiElementClasses = new string[] { "page-item" },//"sr-only"
+        PageClasses = new string[] { "page-link"}})
+@section Scripts
+{
+    <script src="~/js/ProductScripts.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,11 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Dashboard</h2>
+@Html.ActionLink("Categories", "Categories", new { area = "Admin", controller = "Shop" }) |
+@Html.ActionLink("Add Product", "AddProduct", new { area = "Admin", controller = "Shop" }) |
+@Html.ActionLink("Get Product", "Products", new { area = "Admin", controller = "Shop" })

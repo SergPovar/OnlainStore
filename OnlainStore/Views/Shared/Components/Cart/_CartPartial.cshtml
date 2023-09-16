@@ -1,0 +1,8 @@
+@model OnlainStore.Models.Cart.CartVM
+<div>
+    Your cart: @Model.Quantity item - @Model.Price $
+    <br/>
+    @Html.ActionLink("Chekout","Index","Cart")
+</div>
+
+@* ,"", htmlAttributes:new{@class = "btn btn-primary"} *@

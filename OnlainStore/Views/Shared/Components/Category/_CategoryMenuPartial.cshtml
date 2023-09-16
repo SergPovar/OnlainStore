@@ -1,0 +1,7 @@
+@model IEnumerable<OnlainStore.Models.ViewModel.Pages.CategoryVM>
+<h3>Categories</h3>
+@foreach (var item in Model)
+{
+    @Html.ActionLink(@item.Name, "Category", "Shop", new { name = item.Slug.ToLower() },
+        new{@class="list-group-item list-group-item-action"})
+}

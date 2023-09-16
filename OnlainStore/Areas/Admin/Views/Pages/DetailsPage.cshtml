@@ -1,0 +1,42 @@
+@model OnlainStore.Models.ViewModel.Pages.PageVM;
+@{
+    ViewBag.Title = "Details Page";
+    Layout = "_Layout";
+    var pageVm = Model;
+}
+
+<div class="text-center">
+    <h2>Details Page</h2>
+    <div>
+        <hr/>
+        <dt>
+            @if (@pageVm.Title == null)
+            {
+                <p>пусто</p>
+            }
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => pageVm.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => pageVm.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => pageVm.Slug)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => pageVm.Slug)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => pageVm.Body)
+        </dt>
+        <dd>
+            @Html.Raw(pageVm.Body)
+        </dd>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "EditPage", new { id = pageVm.Id_page }) |
+        @Html.ActionLink("Back to Pages", "Index")
+    </div>
+</div>
+<hr/>
