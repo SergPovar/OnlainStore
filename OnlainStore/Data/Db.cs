@@ -22,7 +22,7 @@ public class Db : DbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
           optionsBuilder.UseMySql(
-              "server=localhost; user = root; password = Dudkibar88; database= shop_onlain_db;"
+              "server=localhost; user = serg; password = 12345; database= shop_onlain_db;"
               ,
               new MySqlServerVersion(new Version(8, 0, 34))
           );
